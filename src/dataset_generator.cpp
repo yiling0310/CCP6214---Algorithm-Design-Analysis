@@ -39,7 +39,7 @@ struct Record
 
      cin>> input;
 
-     //group leader's id converted already mapped
+     //random number generator using group leader's seed
      unsigned long long seed = 24221324464ULL;
      mt19937_64 randnumgen(seed);
 
@@ -68,5 +68,37 @@ struct Record
 
              dataset.push_back(rec);
          }
-     }
+
  }
+
+
+ //creating the csv file
+
+ string filename =
+ "dataset_" + to_string(input) + ".csv";
+
+ ofstream file(filename);
+
+ if(!file)
+ {
+
+     cout<< "Error creating the file !"<< endl;
+     return 1;
+ }
+
+ for(size_t i=0; i< dataset.size(); i++)
+ {
+     file<< dataset[i].id<<","<< dataset[i].word<<"\n";
+ }
+
+ file.close();
+
+ cout<< "\n The dataset has been successfully generated.\n";
+ cout<< "   Output file: "<< filename << endl;
+ cout<< "   Total records: "<< input << endl;
+
+ return 0;
+
+ }
+
+
