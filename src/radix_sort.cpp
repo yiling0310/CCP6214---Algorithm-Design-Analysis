@@ -97,6 +97,28 @@ void countingSort(vector<Record>& array, long long exponent)
 }
 
 
+    void radixSort(vector<Record>&array)
+    {
+
+     //take the records and sort it
+
+    long long maximum = array[0].id; //assume the first number is the largest for now
+
+    //check every element
+    for(size_t i=1; i<array.size(); i++)
+    {
+        if(array[i].id > maximum)
+        {
+            maximum= array[i].id;
+        }
+    }
+
+        for (long long exponent=1;maximum/exponent>0; exponent *=10)
+        {
+            countingSort(array, exponent);
+        }
+
+    }
 
 
 
@@ -112,7 +134,11 @@ int main()
 
     readCSV(filename, dataset);
 
+
     cout << " Records loaded:" << dataset.size()<< endl;
+
+    radixSort(dataset);
+    cout<< " Dataset has been successfully sorted !" << endl;
 
     return 0;
 }
