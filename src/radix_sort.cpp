@@ -54,6 +54,51 @@ void readCSV(string filename, vector<Record>& dataset)
 }
 
 
+void countingSort(vector<Record>& array, long long exponent)
+{
+
+    int n = array.size();
+
+    vector<Record>output(n);
+
+    int count[10]={0};
+
+    //count the occurrences of the digits
+
+    for(int i =0; i<n; i++)
+    {
+        int digit= (array[i].id/ exponent)% 10; //take the digit at the current place value
+
+        count[digit]++;
+    }
+
+    //converting the count array to positions
+    for(int i=1; i < 10; i++)
+    {
+        count[i]+= count[i-1];
+    }
+
+    //build the output array
+    for(int i= n-1; i >=0; i--)
+    {
+        int digit= (array[i].id / exponent) % 10;
+
+        output[count[digit]-1]=array[i];
+
+        count[digit]--;
+    }
+
+    for(int i =0; i<n; i++)
+    {
+        array[i]=output[i];
+    }
+
+
+}
+
+
+
+
 
 int main()
 {
