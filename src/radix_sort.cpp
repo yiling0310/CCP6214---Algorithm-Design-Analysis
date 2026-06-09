@@ -121,6 +121,28 @@ void countingSort(vector<Record>& array, long long exponent)
     }
 
 
+    // save the sorted dataset
+
+    void saveCSV( string filename, vector<Record>&dataset)
+    {
+        ofstream file(filename);
+
+        if(!file)
+        {
+            cout<< "Error creating the file !" << endl;
+            return;
+        }
+
+        for(size_t i=0; i< dataset.size(); i++)
+        {
+            file<<dataset[i].id<<","<< dataset[i].word<<"\n";
+        }
+
+        file.close();
+    }
+
+
+
 
 int main()
 {
@@ -132,13 +154,34 @@ int main()
     cout<< " Enter dataset filename:";
     cin >> filename;
 
+    //to read the dataset
     readCSV(filename, dataset);
 
 
     cout << " Records loaded:" << dataset.size()<< endl;
 
+    // start the timing
+    auto start= chrono::high_resolution_clock::now();
+
     radixSort(dataset);
+
+    //stop the timing
+    auto end= chrono:: high_resolution_clock::now();
+
+    //calculate the running time
+    double runtime= chrono:: duration<double>(end-start).count();
+
     cout<< " Dataset has been successfully sorted !" << endl;
+
+
+    //save the sorted data
+    saveCSV("radix_sorted" + filename, dataset);
+
+    cout<< "The data has been sorted !" <<endl;
+    cout<< "Output file :" << "radix_sorted_" + filename<<endl;
+
+    //display the running time
+    cout<<"Running time : " << runtime<<"seconds"<<endl;
 
     return 0;
 }
