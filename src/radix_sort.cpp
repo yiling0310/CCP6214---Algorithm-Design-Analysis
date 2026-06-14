@@ -1,6 +1,27 @@
 
 
 
+// *********************************************************
+// Program: radix_sort.cpp
+
+// Course: CCP6214 Algorithm Design and Analysis
+// Lecture Class: TC3L
+// Tutorial Class: TT10L
+// Trimester: 2610
+// Member_1: 243UC247H3 | Schweeta a/p Kumaran| SCHWEETA.KUMARAN@student.edu.my | 016-207-2813
+// Member_2: 242UC244PD | Tan Yi Ling | 242UC244PD | 0182094439
+// Member_3: 242UC244K8 | Sweeney Chaw Hui Shi | sweeney.chaw.hui@student.mmu.edu.my | 011-26792612
+//
+// *********************************************************
+// Task Distribution
+// Member_1: Dataset Generator + Radix Sort
+// Member_2: Heap Sort
+// Member_3: Hash Table Search
+//
+// *********************************************************
+
+
+
 # include <iostream>
 # include <fstream>
 # include <vector>
@@ -135,7 +156,7 @@ void countingSort(vector<Record>& array, long long exponent)
 
         for(size_t i=0; i< dataset.size(); i++)
         {
-            file<<dataset[i].id<<","<< dataset[i].word<<"\n";
+            file<<dataset[i].id<<"/"<< dataset[i].word<<"\n";
         }
 
         file.close();
@@ -175,7 +196,7 @@ int main()
 
 
     //save the sorted data
-    saveCSV("radix_sorted" + filename, dataset);
+    saveCSV("radix_sorted_" + filename, dataset);
 
     cout<< "The data has been sorted !" <<endl;
     cout<< "Output file :" << "radix_sorted_" + filename<<endl;

@@ -1,3 +1,24 @@
+
+// *********************************************************
+// Program: dataset_generator.cpp
+
+// Course: CCP6214 Algorithm Design and Analysis
+// Lecture Class: TC3L
+// Tutorial Class: TT10L
+// Trimester: 2610
+// Member_1: 243UC247H3 | Schweeta a/p Kumaran| SCHWEETA.KUMARAN@student.edu.my | 016-207-2813
+// Member_2: 242UC244PD | Tan Yi Ling | 242UC244PD | 0182094439
+// Member_3: 242UC244K8 | Sweeney Chaw Hui Shi | sweeney.chaw.hui@student.mmu.edu.my | 011-26792612
+//
+// *********************************************************
+// Task Distribution
+// Member_1: Dataset Generator + Radix Sort
+// Member_2: Heap Sort
+// Member_3: Hash Table Search
+//
+// *********************************************************
+
+
 # include <iostream>
 # include<fstream>
 # include <vector>
@@ -40,7 +61,7 @@ struct Record
      cin>> input;
 
      //random number generator using group leader's seed
-     unsigned long long seed = 24221324464ULL;
+     unsigned long long seed = 2421324464ULL;
      mt19937_64 randnumgen(seed);
 
      // the range for the assignment is given as 1,000,000,000 to 9,999,999,999
