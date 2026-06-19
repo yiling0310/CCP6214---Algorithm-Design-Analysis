@@ -8,7 +8,7 @@
 // Tutorial Class: TT10L
 // Trimester: 2610
 // Member_1: 243UC247H3 | Schweeta a/p Kumaran| SCHWEETA.KUMARAN@student.edu.my | 016-207-2813
-// Member_2: 242UC244PD | Tan Yi Ling | tan.yi.ling1@student.edu.my | 0182094439
+// Member_2: 242UC244PD | Tan Yi Ling | 242UC244PD | 0182094439
 // Member_3: 242UC244K8 | Sweeney Chaw Hui Shi | sweeney.chaw.hui@student.mmu.edu.my | 011-26792612
 //
 // *********************************************************
@@ -39,8 +39,8 @@ struct Record
 
  void readCSV(string filename, vector<Record>& dataset);
  void countingSort(vector<Record>& array, long long exponent);
- void radixSort(vector<Record>&array,vector<Record>& selectedRecords,ofstream& stepFile);
- void writeSortStep(vector<Record>& array,vector<Record>& selectedRecords, ofstream& stepFile,string label);
+ void radixSort(vector<Record>&array ,ofstream& stepFile);
+ void writeSortStep(vector<Record>& array,ofstream& stepFile,string label);
 
 //the functions
 void readCSV(string filename, vector<Record>& dataset)
@@ -121,49 +121,34 @@ void countingSort(vector<Record>& array, long long exponent)
 
 }
 
-void writeSortStep(vector<Record>& array,vector<Record>& selectedRecords, ofstream& stepFile, string label)
+void writeSortStep(vector<Record>& array,ofstream& stepFile, string label)
 
 {
-
-
     stepFile<<"[";
-
-    bool first = true;
 
     for(size_t i = 0; i < array.size(); i++)
     {
-        for(size_t j=0; j<selectedRecords.size ();j++)
-        {
-         if(array[i].id == selectedRecords[j].id)
+        stepFile<<array[i].id<<"/"<<array[i].word;
+
+         if(i<array.size()-1)
          {
-            if (!first)
-            {
-                stepFile << " , ";
+            stepFile << ", ";
 
-            }
-
-
-    stepFile << array[i].id << "/" << array[i].word ;
-
-    first =false;
-        }
-
+         }
     }
-
-}
       stepFile <<"]"<<label <<"\n";
 
 }
 
 
-    void radixSort(vector<Record>&array,vector<Record>& selectedRecords, ofstream& stepFile)
+    void radixSort(vector<Record>&array,ofstream& stepFile)
     {
         if(array.empty())
         {
             return;
         }
 
-        writeSortStep(array,selectedRecords,stepFile,"original");
+        writeSortStep(array,stepFile,"original");
 
      //take the records and sort it
 
@@ -197,7 +182,7 @@ void writeSortStep(vector<Record>& array,vector<Record>& selectedRecords, ofstre
         {
             countingSort(array, exponent);
 
-            writeSortStep(array,selectedRecords,stepFile,"d="+ to_string(currentDigit));
+            writeSortStep(array,stepFile,"d="+ to_string(currentDigit));
 
             currentDigit--;
 
@@ -206,26 +191,20 @@ void writeSortStep(vector<Record>& array,vector<Record>& selectedRecords, ofstre
     }
 
 
-
-int main()
+int main(int argc, char* argv[])
 {
 
     vector<Record> dataset;
-    string filename;
+    if(argc !=4)
+    {
+        cout<<"Usage: "<<argv[0]<<" <dataset_file> <start_row> <end_row>" <<endl;
 
-    int startRow;
-    int endRow;
+        return 1;
+    }
 
-    cout<< " RADIX SORT STEP PROGRAM " << endl;
-
-    cout<< " Enter dataset filename: ";
-    cin >> filename;
-
-    cout<<"Enter the start row:" ;
-    cin>>startRow;
-
-    cout<<"Enter end row:";
-    cin>>endRow;
+    string filename = argv[1];
+    int startRow = stoi(argv[2]);
+    int endRow = stoi(argv[3]);
 
     //to read the dataset
     readCSV(filename, dataset);
@@ -236,12 +215,6 @@ int main()
         cout<<"Dataset is empty !"<<endl;
 
         return 1;
-    }
-
-    vector<Record> selectedRecords;
-    for(int i = startRow-1; i <= endRow-1; i++)
-    {
-        selectedRecords.push_back(dataset[i]);
     }
 
     //check the start row
@@ -266,6 +239,9 @@ int main()
            return 1;
        }
 
+       vector<Record> selectedRecords( dataset.begin()+ startRow -1, dataset.begin()+ endRow);
+
+
 
     //create output filename
     string outputFilename= filename.substr(0, filename.find(".csv"));
@@ -282,7 +258,7 @@ int main()
 
 
 
-    radixSort(dataset,selectedRecords,stepFile);
+    radixSort(selectedRecords,stepFile);
 
     stepFile.close();
 
