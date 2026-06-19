@@ -164,7 +164,7 @@ void writeSortStep(vector<Record>& array,vector<Record>& selectedRecords, ofstre
             return;
         }
 
-        writeSortStep(array,selectedRecords,stepFile,"original");
+        writeSortStep(array,stepFile,"original");
 
      //take the records and sort it
 
@@ -198,7 +198,7 @@ void writeSortStep(vector<Record>& array,vector<Record>& selectedRecords, ofstre
         {
             countingSort(array, exponent);
 
-            writeSortStep(array,selectedRecords,stepFile,"d="+ to_string(currentDigit));
+            writeSortStep(array,stepFile,"d="+ to_string(currentDigit));
 
             currentDigit--;
 
@@ -283,7 +283,7 @@ int main()
 
 
 
-    radixSort(dataset,selectedRecords,stepFile);
+    radixSort(dataset, stepFile);
 
     stepFile.close();
 
