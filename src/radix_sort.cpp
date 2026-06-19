@@ -1,6 +1,4 @@
 
-
-
 // *********************************************************
 // Program: radix_sort.cpp
 
@@ -9,7 +7,7 @@
 // Tutorial Class: TT10L
 // Trimester: 2610
 // Member_1: 243UC247H3 | Schweeta a/p Kumaran| SCHWEETA.KUMARAN@student.edu.my | 016-207-2813
-// Member_2: 242UC244PD | Tan Yi Ling | tan.yi.ling1@student.edu.my | 0182094439
+// Member_2: 242UC244PD | Tan Yi Ling | 242UC244PD | 0182094439
 // Member_3: 242UC244K8 | Sweeney Chaw Hui Shi | sweeney.chaw.hui@student.mmu.edu.my | 011-26792612
 //
 // *********************************************************
@@ -143,7 +141,7 @@ void countingSort(vector<Record>& array, long long exponent)
 
     // save the sorted dataset
 
-    void saveCSV( string filename, vector<Record>&dataset)
+    void saveCSV( string filename, vector<Record>&dataset,double runtime)
     {
         ofstream file(filename);
 
@@ -155,27 +153,39 @@ void countingSort(vector<Record>& array, long long exponent)
 
         for(size_t i=0; i< dataset.size(); i++)
         {
-            file<<dataset[i].id<<"/"<< dataset[i].word<<"\n";
+            file<<dataset[i].id<<","<< dataset[i].word<<"\n";
         }
+
+
+        file<<"\nRunning time:" << runtime<<"seconds\n";
 
         file.close();
     }
 
 
 
-
-int main()
+int main(int argc, char* argv[])
 {
 
     vector<Record> dataset;
-    string filename;
 
-    cout<< " RADIX SORT PROGRAM " << endl;
-    cout<< " Enter dataset filename:";
-    cin >> filename;
+    if(argc !=2)
+    {
+        cout<<"Usage:"<<argv[0]<<"<dataset_file>"<<endl;
+
+        return 1;
+    }
+
+    string filename = argv[1];
 
     //to read the dataset
     readCSV(filename, dataset);
+
+    if(dataset.empty())
+    {
+         cout << "Dataset is empty ! "<< endl;
+         return 1;
+    }
 
 
     cout << " Records loaded:" << dataset.size()<< endl;
@@ -195,13 +205,13 @@ int main()
 
 
     //save the sorted data
-    saveCSV("radix_sorted_" + filename, dataset);
+    saveCSV("radix_sorted_" + filename, dataset,runtime);
 
     cout<< "The data has been sorted !" <<endl;
     cout<< "Output file :" << "radix_sorted_" + filename<<endl;
 
     //display the running time
-    cout<<"Running time : " << runtime<<"seconds"<<endl;
+    cout<<"Running time : " << runtime<<" seconds "<<endl;
 
     return 0;
 }
