@@ -5,7 +5,7 @@
 // Tutorial Class: TT10L
 // Trimester: 2610
 // Member_1: ID | NAME | EMAIL | PHONE
-// Member_2: 242UC244PD | Tan Yi Ling | EMAIL | PHONE
+// Member_2: 242UC244PD | Tan Yi Ling | tan.yi.ling1@student.edu.my | 0182094439
 // Member_3: 242UC244K8 | Sweeney Chaw Hui Shi | sweeney.chaw.hui@student.mmu.edu.my | 011-26792612
 // 
 // *********************************************************
